@@ -36,12 +36,11 @@ class Game:
         for event in pygame.event.get():
             if event.type == pygame.QUIT: #el QUIT event es el click en el icono que cierra ventana
                 self.playing = False
-
+            
     # update de Game llama al update de algunos de los objetos de mi juego
     def update(self):
         events = pygame.key.get_pressed() # pygame.key.get_pressed() obtiene los eventos del teclado en un game loops
         self.spaceship.update(events)
-
 
     def draw(self):
         self.clock.tick(FPS) # configuro cuantos frames per second voy a dibujar
