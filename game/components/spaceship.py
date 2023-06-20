@@ -16,7 +16,7 @@ class Spaceship(Sprite):
         self.rect.x = int(SCREEN_WIDTH/2)
         self.rect.y = SCREEN_HEIGHT-self.image_height # nos permite que la nave completa aparezca por encima del borde inferior de la pantalla
         # definimos la valocidad en 5
-        self.speed = 8
+        self.speed = 10
 
     def draw(self, screen):
         screen.blit(self.image, (self.rect.x, self.rect.y))
