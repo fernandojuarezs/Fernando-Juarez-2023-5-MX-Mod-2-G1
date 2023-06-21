@@ -8,6 +8,8 @@ from game.components.spaceship import Spaceship
 
 from game.components.enemy import Enemy
 
+from game.components.bullet_spaceship import Bullet
+
 
 # Game tiene un Spaceship
 # Game puede decirle al spaceship que se actualice llamandole al metodo update(). update() espera una lista que contiene los eventos de teclado que ocurrieron
@@ -27,6 +29,7 @@ class Game:
         self.list_of_enemies = []
         self.create_new_group_of_enemies = False
         self.spaceship_collision = False
+        self.shooted = False
 
     # establece un numero aleatorio de enemigos entre 1 y 6
     def set_random_number_of_enemies(self):
@@ -90,6 +93,12 @@ class Game:
                         self.list_of_enemies[j].update()
                     else:
                         pass
+    
+    def fire_bullet(self, screen):
+        bullet = Bullet()
+        self.shooted = True
+        bullet.draw(screen)
+        
 
     def run(self):
         # Game loop: events - update - draw
@@ -131,6 +140,7 @@ class Game:
         self.check_collision_of_spaceship()
         self.check_collision_between_enemies() # recordar que dentro del metodo check_collision_between_enemies se actualiza el estado de los enemigos
 
+    
     def draw(self):
         self.clock.tick(FPS) # configuro cuantos frames per second voy a dibujar
         self.screen.fill((255, 255, 255)) # lleno el screen de color BLANCO???? 255, 255, 255 es el codigo RGB
@@ -143,6 +153,7 @@ class Game:
         #self.enemy.draw(self.screen)
         for i in range(self.number_of_enemies):
             self.list_of_enemies[i].draw(self.screen)
+
         
 
         pygame.display.update() # esto hace que el dibujo se actualice en el display de pygame
