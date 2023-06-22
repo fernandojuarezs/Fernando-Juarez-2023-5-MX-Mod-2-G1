@@ -8,6 +8,8 @@ from game.components.bullet_spaceship import BulletSpaceship # lo importamos par
 
 # sprite es un objeto de pygame (objeto dibujable)
 class Spaceship(Sprite):
+    pygame.init()
+    bullet_sound = pygame.mixer.Sound('game\components\gun-gunshot-01.wav')    
     def __init__(self):
         self.image = SPACESHIP
         self.image_width = 40
@@ -39,6 +41,7 @@ class Spaceship(Sprite):
             self.move_down()
         if keyboard_events[pygame.K_SPACE]:
             self.bullets_shooted.append(BulletSpaceship(self.rect.x, self.rect.y))
+            self.bullet_sound.play()
         for bullet in self.bullets_shooted:
             bullet.update()
             if not bullet.is_active:
