@@ -19,10 +19,9 @@ class Enemy:
         self.option2_yspeed = 2
         self.is_alive = True
         self.is_shooting = False
-
         self.bullets_shooted = []
 
-
+    # permite al enemigo cambiar su estado de vivo a Falso si esta fuera de la pantalla, permite moverse, cargar balas en la lista si su estado de disparar es verdadero y eliminar las balas que no esten activas de la lista de balas disparadas
     def update(self):
         if self.rect.y > SCREEN_HEIGHT:
             self.is_alive = False
@@ -39,16 +38,10 @@ class Enemy:
         for i in range(len(self.bullets_shooted)):
             self.bullets_shooted[i].draw(screen)
 
-
+    # permite al enemigo poner balas en su lista y una vez que cargo solo una bala, el estado del enemigo de disparar cambia a Falso
     def charge_bullet(self):
-        """self.is_shooting = False
-        random_number_of_bullets = random.randint(4,10)
-        print(random_number_of_bullets)
-        for i in range(0,random_number_of_bullets):
-            self.bullets_shooted.append(BulletEnemy(self.rect.x, self.rect.y))"""
         self.bullets_shooted.append(BulletEnemy(self.rect.x, self.rect.y))
         self.is_shooting = False
-
 
     def walk_random(self):
         random_number_for_moving = random.random() # entrega un numero entre 0 y 1 (decimales)

@@ -2,12 +2,13 @@ import pygame
 
 from pygame.sprite import Sprite
 
-from game.utils.constants import SPACESHIP, SCREEN_WIDTH, SCREEN_HEIGHT
+from game.utils.constants import SPACESHIP, SCREEN_WIDTH, SCREEN_HEIGHT, SPACESHIP_SHIELD
 
 from game.components.bullet_spaceship import BulletSpaceship # lo importamos para acceder a todos los metodos de las balas. Importante, no creamos ningun objeto BulletSpaceship en los atributos de la nave. Lo mismo se hizo con enemy handler. 
 
 # sprite es un objeto de pygame (objeto dibujable)
 class Spaceship(Sprite):
+    name_image = "spaceship"
     pygame.init()
     bullet_sound = pygame.mixer.Sound('game\components\gun-gunshot-01.wav')    
     def __init__(self):
@@ -21,9 +22,11 @@ class Spaceship(Sprite):
         self.rect.y = SCREEN_HEIGHT-self.image_height # nos permite que la nave completa aparezca por encima del borde inferior de la pantalla
         # definimos la valocidad en 5
         self.speed = 10
-        
+        self.delay_time = 0
         self.bullets_shooted = []
         self.is_alive = True
+        self.is_indestructible = False
+        self.current_score = 0
 
     def draw(self, screen):
         screen.blit(self.image, (self.rect.x, self.rect.y))
@@ -39,14 +42,17 @@ class Spaceship(Sprite):
             self.move_up()
         if keyboard_events[pygame.K_DOWN] and self.rect.y < SCREEN_HEIGHT-self.image_height:
             self.move_down()
-        if keyboard_events[pygame.K_SPACE]:
+        if keyboard_events[pygame.K_SPACE] and self.delay_time % 4 == 0:
             self.bullets_shooted.append(BulletSpaceship(self.rect.x, self.rect.y))
             self.bullet_sound.play()
         for bullet in self.bullets_shooted:
             bullet.update()
             if not bullet.is_active:
                 self.bullets_shooted.remove(bullet)
-            
+        self.delay_time += 1
+        if self.name_image == "spaceship_shield":
+            self.activate_indestructible()
+
     def move_to_right(self):
         self.rect.x += self.speed
     
@@ -59,13 +65,8 @@ class Spaceship(Sprite):
     def move_up(self):
         self.rect.y -= self.speed
 
-"""    def kill_enemies(self, enemy):
-        for bullet in self.bullets_shooted:
-            return bullet.rect.colliderect(enemy.rect)"""
+    def activate_indestructible(self):
+        self.is_indestructible = True
+        self.current_score = 0
 
-
-    
-
-        
-    
 
