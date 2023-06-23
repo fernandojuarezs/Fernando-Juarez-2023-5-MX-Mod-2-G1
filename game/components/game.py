@@ -70,7 +70,6 @@ class Game:
         # checa si el jugador ha muerto y aumenta el numero de muertes actual en la misma cantidad que el enemy handler
         self.enemy_handler.kill_by_bullet(self.spaceship, self.spaceship.rect.x, self.spaceship.rect.y)
         self.total_deaths = self.enemy_handler.deaths_of_player
-        # si el jugador muere, llamara a la pantalla de game over
 
     def draw(self):
         self.clock.tick(FPS) # configuro cuantos frames per second voy a dibujar
@@ -81,8 +80,8 @@ class Game:
         self.spaceship.draw(self.screen)
         self.enemy_handler.draw(self.screen)
         self.shield_handler.draw(self.screen)
+        # si el jugador muere, llamara a la pantalla de game over
         self.display_game_over()
-
 
         # Game le ordena a los enemigos de la lista dibujarse llamando a un metodo llamando draw del Enemy (el metodo draw espera que le pase screen)
         pygame.display.update() # esto hace que el dibujo se actualice en el display de pygame

@@ -25,8 +25,8 @@ class Spaceship(Sprite):
         self.delay_time = 0
         self.bullets_shooted = []
         self.is_alive = True
-        self.is_indestructible = False
-        self.current_score = 0
+        self.is_indestructible = False # atributo que indica si trae consigo un escudo
+        self.current_score = 0 
 
     def draw(self, screen):
         screen.blit(self.image, (self.rect.x, self.rect.y))
@@ -50,8 +50,6 @@ class Spaceship(Sprite):
             if not bullet.is_active:
                 self.bullets_shooted.remove(bullet)
         self.delay_time += 1
-        if self.name_image == "spaceship_shield":
-            self.activate_indestructible()
 
     def move_to_right(self):
         self.rect.x += self.speed
@@ -64,9 +62,5 @@ class Spaceship(Sprite):
     
     def move_up(self):
         self.rect.y -= self.speed
-
-    def activate_indestructible(self):
-        self.is_indestructible = True
-        self.current_score = 0
 
 

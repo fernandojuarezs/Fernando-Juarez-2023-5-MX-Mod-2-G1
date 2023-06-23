@@ -11,6 +11,7 @@ class ShieldHandler:
         self.shields = []
         self.counter = 0
 
+    # actualiza el estado de los escudos en la lista. Si no hay escudos en la lista y el contador es divisible entre 40 de forma exacta, creara un escudo (se puede cambiar el numero para que los escudos aparezcan con mas o menos frecuencia). En caso de que si haya escudos, se actualiza el estado del escudo.
     def update(self):
         if self.shields == [] and self.counter % 40 == 0:
             self.spawn_a_shield()
@@ -25,10 +26,12 @@ class ShieldHandler:
         for shield in self.shields:
             shield.draw(screen)
 
+    # metodo para generar escudos en una posicion aleatoria
     def spawn_a_shield(self):
         self.shields.append(Shield())
         self.set_position_of_shields()
     
+    # metodo para definir la posicion aleatoria del escudo
     def set_position_of_shields(self):
         # establecemos donde aparecera cada enemigo
         pos_x_random = random.randint(20,1000)
@@ -38,6 +41,7 @@ class ShieldHandler:
     def remove(self, shield):
         self.shields.remove(shield)
 
+    # metodo para activar el escudo en el jugador en caso de que colisione con un escudo. Cambia la imagen y el estado a indestructible a el jugador. Al final elimina el escudo de la lista
     def active_shield_for_spaceship(self, player, spacheship_xpos, spaceship_ypos):
         for shield in self.shields:
             if shield.rect.colliderect(player.rect) and player.is_indestructible == False:
